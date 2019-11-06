@@ -34,29 +34,49 @@ Other works, instead, make use of extra-memory or generative models that provide
 ## <a name="datasets"></a>Datasets
 | Name | Resolution | Classes | Images | Size | Times Used |
 |:-:|:-:|:-:|:-:|:-:|:-:|
-| <a name="cifar-10"></a>[MNIST][web:mnist] | 28x28 | 10 | 70k | 20 MB | 0 |
-| <a name="cifar-10"></a>[CIFAR-10][web:cifar] | 32x32 | 10 | 60k | 160 MB | 0 |
-| <a name="cifar-100"></a>[CIFAR-100][web:cifar] | 32x32 | 100 | 60k | 160 MB | 0 |
-| <a name="cifar-1000"></a>[ImageNet-1000][web:imagenet1000] | 469x387* | 1000 | 1.2M | 154 GB | 0 |
+| <a name="mnist"></a>[MNIST][web:mnist] | 28x28 | 10 (permuted / disjoint) | 70k | 20 MB | 1 |
+| <a name="cifar"></a>[CIFAR][web:cifar] | 32x32 | 10 / 100 | 60k | 160 MB | 1 |
+| <a name="imagenet-1000"></a>[ImageNet][web:imagenet] | 469x387* | 1000 | 1.2M | 154 GB | 1 |
 
-[web:mnist]:http://yann.lecun.com/exdb/mnist/
+[web:mnist]: http://yann.lecun.com/exdb/mnist/
 [web:cifar]: https://www.cs.toronto.edu/~kriz/cifar.html
-[web:imagenet1000]: http://www.image-net.org/download-images
+[web:imagenet]: http://www.image-net.org/download-images
 
 \* on average, though images are usually downscaled to 256x256
 
-## <a name="formatting"></a>Formatting
-Papers are organized in chronological order. Each entry should be formatted as below:
+## <a name="template"></a>Template
+Each entry should be formatted as below:
 
 ---
 
-<a name="paper_id"></a>**[Name of the Paper][paper:paper_id]**
-<br/>
+<a name="paper_id"></a>[Title of the Paper][paper:paper_id], Conference <br/>
 *Authors*<br/>
 
-| Conference | Category | Dataset | Code | Inspiration Score |
+| Conference | Category | Datasets | Code | Inspiration Score |
 |:-:|:-:|:-:|:-:|:-:|
-| conference, year | regularization <br/> sample <br/> generative <br/> meta | list of datasets <br/> link to table | [<img src="icons/pytorch.png" alt="pytorch" height="24"/>][code:paper_id] pytorch <br/> [<img src="icons/tensorflow.png" alt="tensorflow" height="24"/>][code:paper_id] tensorflow <br/> :no_entry_sign: no code | :poop: very bad <br/> :face_with_head_bandage: bad <br/> :neutral_face: ok <br/> :star: good <br/> :fire: very good <br/> :thinking: not sure |
+| conference, year | regularization <br/> sample <br/> generative <br/> meta | list of datasets | [<img src="icons/pytorch.png" alt="pytorch" height="24"/>][code:paper_id] pytorch <br/> [<img src="icons/tensorflow.png" alt="tensorflow" height="24"/>][code:paper_id] tensorflow <br/> :no_entry_sign: no code | :poop: very bad <br/> :face_with_head_bandage: bad <br/> :neutral_face: ok <br/> :star: good <br/> :fire: very good <br/> :thinking: not sure |
+
+**Summary:**<br/>
+three to five lines summary.
+
+**Comment:**<br/>
+three to five lines comment.
+
+[paper:paper_id]: https://arxiv.org
+[code:paper_id]: https://github.com
+
+---
+<!--- an example, copy paste from here
+
+---
+
+<a name="paper_id"></a>[Name of the Paper][paper:paper_id], conference <br/>
+*Authors*<br/>
+
+| Category | Datasets | Code | Inspiration Score |
+|:-:|:-:|:-:|:-:|
+| regularization | [disjoint-MNIST](#disjoint-mnist)  | [<img src="icons/pytorch.png" height="24"/>](github.com) | :star: |
+
 
 **Summary:**<br/>
 three to five lines summary goes here.
@@ -69,8 +89,32 @@ three to five lines comment goes here.
 
 ---
 
+-->
+
 ## <a name="papers"></a>Papers
 
-- [first paper](#paper_id)
-- [second paper](#paper_id)
-- [third paper](#paper_id)
+Papers are organized in chronological order.
+
+#### Index
+
+- [Learning without Forgetting](#lwf), ECCV 2016
+
+#### Details
+
+---
+
+<a name="lwf"></a>[Learning without Forgetting](https://arxiv.org/abs/1606.09282), ECCV 2016<br/>
+*Zhizhong Li, Derek Hoiem*
+
+| Category | Datasets | Code | Inspiration Score |
+|:-:|:-:|:-:|:-:|
+| regularization | MNIST, CIFAR, ImageNet, ... | [<img src="https://upload.wikimedia.org/wikipedia/commons/2/21/Matlab_Logo.png" height="24"/>](https://github.com/lizhitwo/LearningWithoutForgetting#installation) [<img src="icons/pytorch.png" height="24"/>](https://github.com/GMvandeVen/continual-learning) | :star: |
+
+
+**Summary:**<br/>
+Foundational work on CL, LwF proposes to preserve the performance on the old task using [knowledge distillation](https://arxiv.org/abs/1503.02531). They introduce a regularization term (distillation loss) in training that encourages the outputs of the new network to approximate the outputs of the old network. Several regularization losses (L1, L2, cross-entropy) are tested with similar results to distillation loss. Both single and multiple new tasks are explored. The experiments show that LwF moderately outperforms feature extraction, finetuning, [Less-forgetting Learning](#lfl), while compared to the joint training setup, it tends to underperform on the old task (as expected).
+
+**Comment:**<br/>
+The main disadvantage of LwF is that it seems to work only in the case that the two tasks (new and old) are very similar. Also, this approach is expensive as it requires computing a forward pass through the old task’s network for every new data point.
+
+---
