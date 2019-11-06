@@ -52,8 +52,8 @@ Papers are organized in chronological order. Each entry should be formatted as b
 
 <a name="paper_id"></a>**[Name of the Paper][paper:paper_id]**
 <br/>
-<span style="color:grey">Authors</span><br/>
-Name of the conference, Year<br/>
+*Authors*<br/>
+Name of the Conference, Year<br/>
 
 | Category | Code | Inspiration Score |
 |:-:|:-:|:-:|
