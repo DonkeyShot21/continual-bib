@@ -52,9 +52,9 @@ Each entry should be formatted as below:
 <a name="paper_id"></a>[Title of the Paper][paper:paper_id], Conference <br/>
 *Authors*<br/>
 
-| Conference | Category | Datasets | Code | Inspiration Score |
+| Category | Datasets | Code | Inspiration Score |
 |:-:|:-:|:-:|:-:|:-:|
-| conference, year | regularization <br/> sample <br/> generative <br/> meta | list of datasets | [<img src="icons/pytorch.png" alt="pytorch" height="24"/>][code:paper_id] pytorch <br/> [<img src="icons/tensorflow.png" alt="tensorflow" height="24"/>][code:paper_id] tensorflow <br/> :no_entry_sign: no code | :poop: very bad <br/> :face_with_head_bandage: bad <br/> :neutral_face: ok <br/> :star: good <br/> :fire: very good <br/> :thinking: not sure |
+| regularization <br/> sample <br/> generative <br/> meta | list of datasets | [<img src="icons/pytorch.png" alt="pytorch" height="24"/>][code:paper_id] pytorch <br/> [<img src="icons/tensorflow.png" alt="tensorflow" height="24"/>][code:paper_id] tensorflow <br/> :no_entry_sign: no code | :poop: very bad <br/> :face_with_head_bandage: bad <br/> :neutral_face: ok <br/> :star: good <br/> :fire: very good <br/> :thinking: not sure |
 
 **Summary:**<br/>
 three to five lines summary.
@@ -116,5 +116,3 @@ Foundational work on CL, LwF proposes to preserve the performance on the old tas
 
 **Comment:**<br/>
 The main disadvantage of LwF is that it seems to work only in the case that the two tasks (new and old) are very similar. Also, this approach is expensive as it requires computing a forward pass through the old task’s network for every new data point.
-
----
