@@ -1,7 +1,7 @@
 # Inspiring Continual Learning
 A curated list of inspiring Continual Learning (aka Incremental Learning) resources.
 
-### <a name="intro"></a>Introduction
+## <a name="intro"></a>Introduction
 
 It is a well known fact that biological brains considerably outperform current artificial neural networks when it comes to learning adaptively. Humans, as most of life forms, are, in fact, orders of magnitude more efficient than our Deep Learning (DL) models at tackling never seen problems sequentially. There is much evidence that this is due to our ability to exploit previously learned priors [[1](#ref1)] to understand the mechanics behind the new task, in order to quickly come to a solution.
 
@@ -32,7 +32,7 @@ Following the idea of restraining drastic changes of the model, some studies int
 <a name="ref5"></a>[5] [Continual Learning Through Synaptic Intelligence](https://arxiv.org/abs/1703.04200), ICML 2017<br/>
 <a name="ref6"></a>[6] [Meta Continual Learning](https://arxiv.org/abs/1806.06928), Arxiv
 
-### <a name="datasets"></a>Datasets
+## <a name="datasets"></a>Datasets
 | Name | Resolution | Classes | Images | Size | Times Used |
 |:-:|:-:|:-:|:-:|:-:|:-:|
 | <a name="cifar-10"></a>[MNIST][web:mnist] | 28x28 | 10 | 70k | 20 MB | 0 |
@@ -46,7 +46,7 @@ Following the idea of restraining drastic changes of the model, some studies int
 
 \* on average, though images are usually downscaled to 256x256
 
-### <a name="formatting"></a>Formatting
+## <a name="formatting"></a>Formatting
 Papers are organized in chronological order. Each entry should be formatted as below:
 
 ---
@@ -73,3 +73,9 @@ three to five lines comment goes here.
 [code:paper_id]: https://github.com
 
 ---
+
+## <a name="papers"></a>Papers
+
+- [first paper](#paper_id)
+- [second paper](#paper_id)
+- [third paper](#paper_id)
