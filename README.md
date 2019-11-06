@@ -53,7 +53,7 @@ Each entry should be formatted as below:
 *Authors*<br/>
 
 | Category | Datasets | Code | Inspiration Score |
-|:-:|:-:|:-:|:-:|:-:|
+|:-:|:-:|:-:|:-:|
 | regularization <br/> sample <br/> generative <br/> meta | list of datasets | [<img src="icons/pytorch.png" alt="pytorch" height="24"/>][code:paper_id] pytorch <br/> [<img src="icons/tensorflow.png" alt="tensorflow" height="24"/>][code:paper_id] tensorflow <br/> :no_entry_sign: no code | :poop: very bad <br/> :face_with_head_bandage: bad <br/> :neutral_face: ok <br/> :star: good <br/> :fire: very good <br/> :thinking: not sure |
 
 **Summary:**<br/>
