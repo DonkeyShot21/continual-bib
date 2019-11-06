@@ -53,20 +53,16 @@ Papers are organized in chronological order. Each entry should be formatted as b
 <a name="paper_id"></a>**[Name of the Paper][paper:paper_id]**
 <br/>
 *Authors*<br/>
-Name of the Conference, Year<br/>
 
-| Category | Code | Inspiration Score |
-|:-:|:-:|:-:|
-| regularization <br/> sample <br/> generative <br/> meta | [:atom:][code:paper_id] nice code <br/> [:toilet:][code:paper_id] bad code<br/> :no_entry_sign:	 no code | :poop: very bad <br/> :face_with_head_bandage: bad <br/> :neutral_face: ok <br/> :star: good <br/> :fire: very good <br/> :thinking: not sure |
+| Conference | Category | Dataset | Code | Inspiration Score |
+|:-:|:-:|:-:|:-:|:-:|
+| conference, year | regularization <br/> sample <br/> generative <br/> meta | list of datasets <br/> link to table | [<img src="icons/pytorch.png" alt="pytorch" height="24"/>][code:paper_id] pytorch <br/> [<img src="icons/tensorflow.png" alt="tensorflow" height="24"/>][code:paper_id] tensorflow <br/> :no_entry_sign: no code | :poop: very bad <br/> :face_with_head_bandage: bad <br/> :neutral_face: ok <br/> :star: good <br/> :fire: very good <br/> :thinking: not sure |
 
 **Summary:**<br/>
 three to five lines summary goes here.
 
 **Comment:**<br/>
 three to five lines comment goes here.
-
-**Datasets:** list of datasets they use with link to dataset table
-
 
 [paper:paper_id]: https://arxiv.org
 [code:paper_id]: https://github.com
