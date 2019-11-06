@@ -15,22 +15,21 @@ More specifically, an artificial CL agent should also exhibit the following attr
 
 Arguably, CL is one of the ingredients that play a fundamental role in the creation of Artificial General Intelligence (AGI). Unfortunately, it just so happens that the current generation of neural networks performs very poorly in this adaptive scenario.
 
-In fact, DL models are usually haunted by a well studied problem called catastrophic forgetting. Catastrophic forgetting is the tendency of neural models to severely degrade performance on previous tasks when training on new tasks. This is particularly difficult to solve because it is intrinsic to the optmization methods (e.g. gradient descent) used to learn the weights of the networks.
+In fact, DL models are usually haunted by a well studied problem called **catastrophic forgetting**. Catastrophic forgetting is the tendency of neural models to severely degrade performance on previous tasks when training on new tasks. This is particularly difficult to solve because it is intrinsic to the optmization methods (e.g. gradient descent) used to learn the weights of the networks.
 
 From a Bayesian perspective, avoiding catastrophic forgetting seems straightforward. It is sufficient to retain a distribution over model parameters that indicates the plausibility of any setting given the observed data and then, when new data arrive, combine it with the new information, preventing parameters that strongly influence prediction from changing drastically [[2](#ref2),[3](#ref3)]. The problem with this approach is that Bayesian inference is usually intractable.
 
 Following the idea of restraining drastic changes of the model, some studies introduced regularization terms depending on some Bayesian inference approximations, for instance:  Fisher information [[4](#ewc)], path integral [[5](#ref5)], variational approximation [[3](#ref3)]. To push this concept even further, a few Meta Continual Learning approaches propose to train another neural network to predict parameter update steps instead of trying to formulate a hand-crafted constraint function [[6](#ref6)].
 
-\noindent Other works, instead, make use of extra-memory or generative models that provide a replay of data for past tasks. The result is a cooperative dual model architecture consisting of a \textit{generator} and a \textit{solver} \cite{shin2017continual}. Since the \textit{generator} maximizes the likelihood of generated samples being in the real distribution of data for the previous task, it can be used to feed new data to the \textit{solver}.
-
-\noindent In the next section a novel solution to catastrophic forgetting will be presented, together with a detailed explanation of the architecture of the system, and some insights on how to evaluate its performance.
+Other works, instead, make use of extra-memory or generative models that provide a replay of data for past tasks. The result is a cooperative dual model architecture consisting of a *generator* and a *solver* [[7](#ref7)]. Since the *generator* maximizes the likelihood of generated samples being in the real distribution of data for the previous task, it can be used to feed new data to the *solver*.
 
 <a name="ref1"></a>[1] [Investigating Human Priors for Playing Video Games](https://arxiv.org/pdf/1802.10217.pdf), ICML 2018, [website](https://rach0012.github.io/humanRL_website/)<br/>
 <a name="ref2"></a>[2] [A Unifying Bayesian View of Continual Learning](https://arxiv.org/abs/1902.06494), NIPS 2018<br/>
 <a name="ref3"></a>[3] [Variational Continual Learning](https://arxiv.org/abs/1710.10628), ICLR 2018<br/>
 <a name="ref4"></a>[4] [Overcoming catastrophic forgetting in neural networks](https://arxiv.org/abs/1612.00796), PNAS<br/>
 <a name="ref5"></a>[5] [Continual Learning Through Synaptic Intelligence](https://arxiv.org/abs/1703.04200), ICML 2017<br/>
-<a name="ref6"></a>[6] [Meta Continual Learning](https://arxiv.org/abs/1806.06928), Arxiv
+<a name="ref6"></a>[6] [Meta Continual Learning](https://arxiv.org/abs/1806.06928), Arxiv <br/>
+<a name="ref7"></a>[7] [Continual learning with deep generative replay](https://arxiv.org/abs/1705.08690), NIPS 2017
 
 ## <a name="datasets"></a>Datasets
 | Name | Resolution | Classes | Images | Size | Times Used |
