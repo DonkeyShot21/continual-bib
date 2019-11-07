@@ -54,7 +54,7 @@ Each entry should be formatted as below:
 
 | Category | Datasets | Code | Inspiration Score |
 |:-:|:-:|:-:|:-:|
-| regularization <br/> sample <br/> generative <br/> meta | list of datasets | [<img src="icons/pytorch.png" alt="pytorch" height="24"/>][code:paper_id] pytorch <br/> [<img src="icons/tensorflow.png" alt="tensorflow" height="24"/>][code:paper_id] tensorflow <br/> :no_entry_sign: no code | :poop: very bad <br/> :face_with_head_bandage: bad <br/> :neutral_face: ok <br/> :star: good <br/> :fire: very good <br/> :thinking: not sure |
+| regularization <br/> sample <br/> generative <br/> meta | list of datasets | [<img src="icons/pytorch.png" alt="pytorch" height="24"/>][code:paper_id] pytorch <br/> [<img src="icons/tensorflow.png" alt="tensorflow" height="24"/>][code:paper_id] tensorflow <br/> :no_entry_sign: no code | :thinking: not sure <br/> :neutral_face: ok <br/> :star: good <br/> :fire: very good |
 
 **Summary:**<br/>
 three to five lines summary.
@@ -95,11 +95,12 @@ three to five lines comment goes here.
 
 Papers are organized in chronological order.
 
-#### Index
+### List Index
 
 - [Learning without Forgetting](#lwf), ECCV 2016
+- [Overcoming catastrophic forgetting in neural networks](#ewc), PNAS 2017
 
-#### Details
+### Detailed List
 
 ---
 
@@ -110,9 +111,26 @@ Papers are organized in chronological order.
 |:-:|:-:|:-:|:-:|
 | regularization | MNIST, CIFAR, ImageNet, ... | [<img src="https://upload.wikimedia.org/wikipedia/commons/2/21/Matlab_Logo.png" height="24"/>](https://github.com/lizhitwo/LearningWithoutForgetting#installation) [<img src="icons/pytorch.png" height="24"/>](https://github.com/GMvandeVen/continual-learning) | :star: |
 
-
 **Summary:**<br/>
-Foundational work on CL, LwF proposes to preserve the performance on the old task using [knowledge distillation](https://arxiv.org/abs/1503.02531). They introduce a regularization term (distillation loss) in training that encourages the outputs of the new network to approximate the outputs of the old network. Several regularization losses (L1, L2, cross-entropy) are tested with similar results to distillation loss. Both single and multiple new tasks are explored. The experiments show that LwF moderately outperforms feature extraction, finetuning, [Less-forgetting Learning](#lfl), while compared to the joint training setup, it tends to underperform on the old task (as expected).
+LwF proposes to preserve the performance on the old task using [knowledge distillation](https://arxiv.org/abs/1503.02531). They introduce a regularization term (distillation loss) in training that encourages the outputs of the new network to approximate the outputs of the old network. Several regularization losses (L1, L2, cross-entropy) are tested with similar results to distillation loss. Both single and multiple new tasks are explored. The experiments show that LwF moderately outperforms feature extraction, finetuning, [Less-forgetting Learning](#lfl), while compared to the joint training setup, it tends to underperform on the old task (as expected).
 
 **Comment:**<br/>
-The main disadvantage of LwF is that it seems to work only in the case that the two tasks (new and old) are very similar. Also, this approach is expensive as it requires computing a forward pass through the old task’s network for every new data point.
+The main disadvantage of LwF is that it seems to work only in the case that the two tasks (new and old) are very similar. This is because the features extracted by the old network on the new task might might not be representative, since the network has been trained on very different data. Also, this approach is expensive as it requires computing a forward pass through the old task’s network for every new data point.
+
+---
+
+<a name="ewc"></a>[Overcoming catastrophic forgetting in neural networks](https://arxiv.org/abs/1612.00796), PNAS 2017<br/>
+*James Kirkpatrick, Razvan Pascanu, Neil Rabinowitz, et al.*
+
+| Category | Datasets | Code | Inspiration Score |
+|:-:|:-:|:-:|:-:|
+| regularization | MNIST | [<img src="icons/pytorch.png" height="24"/>](https://github.com/moskomule/ewc.pytorch) [<img src="icons/pytorch.png" height="24"/>](https://github.com/shivamsaboo17/Overcoming-Catastrophic-forgetting-in-Neural-Networks) [<img src="icons/tensorflow.png" height="24"/>](https://github.com/ariseff/overcoming-catastrophic)| :fire: |
+
+**Summary:**<br/>
+This paper by DeepMind introduces Elastic Weight Consolidation (EWC), a method that slows down learning on certain weights based on how important they are to previously seen tasks. Ideally the importance of each weight should be estimated using the posterior distribution of the weights given task A: *p(θ|D<sub>A</sub>)*. The true posterior probability is intractable, so they approximate
+the posterior as a Gaussian distribution with mean given by the parameters θ<sup>*</sup><sub>A</sub> and a diagonal precision given by the diagonal of the Fisher information matrix (*F*). Using *F* is convenient because it approximates the second derivative of the loss near the minimum but it can be computed easily from the first derivative. EWC is evaluated on both supervised and reinforcement learning scenarios. For supervised learning they use permuted MNIST with very good results.
+
+**Comment:**<br/>
+The method is interesting and well theoretically grounded. The problem with the paper, from a Computer Vision point of view, are the experiments: permuted MNIST is not a good benchmark.
+
+---
