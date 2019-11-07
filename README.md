@@ -34,8 +34,8 @@ Other works, instead, make use of extra-memory or generative models that provide
 ## <a name="datasets"></a>Datasets
 | Name | Resolution | Classes | Images | Size | Times Used |
 |:-:|:-:|:-:|:-:|:-:|:-:|
-| <a name="mnist"></a>[MNIST][web:mnist] | 28x28 | 10 (permuted / disjoint) | 70k | 20 MB | 1 |
-| <a name="cifar"></a>[CIFAR][web:cifar] | 32x32 | 10 / 100 | 60k | 160 MB | 1 |
+| <a name="mnist"></a>[MNIST][web:mnist] | 28x28 | 10 (permuted / disjoint) | 70k | 20 MB | 3 |
+| <a name="cifar"></a>[CIFAR][web:cifar] | 32x32 | 10 / 100 | 60k | 160 MB | 2 |
 | <a name="imagenet-1000"></a>[ImageNet][web:imagenet] | 469x387* | 1000 | 1.2M | 154 GB | 1 |
 
 [web:mnist]: http://yann.lecun.com/exdb/mnist/
@@ -93,23 +93,24 @@ three to five lines comment goes here.
 
 ## <a name="papers"></a>Papers
 
-Papers are organized in chronological order.
+Papers are organized in chronological order. If the same method has been published in different conferences / journals, all of them need to be listed both in the list index and the detailed list. The summary and table should refer to the most recent publication (usually journal). When many implementations are available, just include the ones that look more user frendly. In the case there are too many authors for one publication just report the first three + *et al.*
 
 ### List Index
 
-- [Learning without Forgetting](#lwf), ECCV 2016
+- [Learning without Forgetting](#lwf), ECCV 2016 / PAMI 2017
 - [Overcoming catastrophic forgetting in neural networks](#ewc), PNAS 2017
+- [Continual learning through synaptic intelligence](#si), ICML 2017
 
 ### Detailed List
 
 ---
 
-<a name="lwf"></a>[Learning without Forgetting](https://arxiv.org/abs/1606.09282), ECCV 2016<br/>
+<a name="lwf"></a>[Learning without Forgetting](https://arxiv.org/abs/1606.09282), ECCV 2016 / PAMI 2017<br/>
 *Zhizhong Li, Derek Hoiem*
 
 | Category | Datasets | Code | Inspiration Score |
 |:-:|:-:|:-:|:-:|
-| regularization | MNIST, CIFAR, ImageNet, ... | [<img src="https://upload.wikimedia.org/wikipedia/commons/2/21/Matlab_Logo.png" height="24"/>](https://github.com/lizhitwo/LearningWithoutForgetting#installation) [<img src="icons/pytorch.png" height="24"/>](https://github.com/GMvandeVen/continual-learning) | :star: |
+| regularization | MNIST, CIFAR, ImageNet, ... | [<img src="icons/pytorch.png" height="24"/>](https://github.com/GMvandeVen/continual-learning) [<img src="https://upload.wikimedia.org/wikipedia/commons/2/21/Matlab_Logo.png" height="24"/>](https://github.com/lizhitwo/LearningWithoutForgetting#installation) | :star: |
 
 **Summary:**<br/>
 LwF proposes to preserve the performance on the old task using [knowledge distillation](https://arxiv.org/abs/1503.02531). They introduce a regularization term (distillation loss) in training that encourages the outputs of the new network to approximate the outputs of the old network. Several regularization losses (L1, L2, cross-entropy) are tested with similar results to distillation loss. Both single and multiple new tasks are explored. The experiments show that LwF moderately outperforms feature extraction, finetuning, [Less-forgetting Learning](#lfl), while compared to the joint training setup, it tends to underperform on the old task (as expected).
@@ -131,6 +132,21 @@ This paper by DeepMind introduces Elastic Weight Consolidation (EWC), a method t
 the posterior as a Gaussian distribution with mean given by the parameters θ<sup>*</sup><sub>A</sub> and a diagonal precision given by the diagonal of the Fisher information matrix (*F*). Using *F* is convenient because it approximates the second derivative of the loss near the minimum but it can be computed easily from the first derivative. EWC is evaluated on both supervised and reinforcement learning scenarios. For supervised learning they use permuted MNIST with very good results.
 
 **Comment:**<br/>
-The method is interesting and well theoretically grounded. The problem with the paper, from a Computer Vision point of view, are the experiments: permuted MNIST is not a good benchmark.
+The method is interesting and well theoretically grounded. The problem with the paper, from a Computer Vision point of view, are the experiments: permuted MNIST is not a good benchmark. Also, the importance (Fisher information) of the weights needs to be computed in a separate phase, using a sample of data points for each task.
+
+---
+
+<a name="si"></a>[Continual learning through synaptic intelligence](https://arxiv.org/abs/1703.04200), ICML 2017<br/>
+*Friedemann Zenke, Ben Poole, Surya Ganguli*
+
+| Category | Datasets | Code | Inspiration Score |
+|:-:|:-:|:-:|:-:|
+| regularization | MNIST, CIFAR | [<img src="icons/pytorch.png" height="24"/>](https://github.com/GMvandeVen/continual-learning) [<img src="icons/tensorflow.png" height="24"/>](https://github.com/ganguli-lab/pathint)| :star: |
+
+**Summary:**<br/>
+Synaptic Intelligence (SI) method is introduced, which is similar to [EWC](#ewc), but computes the importance of each weight in an online fashion, along the entire learning trajectory. SI introduces a regularization loss that is composed by: (i) a factor that estimates how much an individual parameter contributed to the drop in the loss by computing the path integral of the gradient vector field along the parameter trajectory (approximated with *gradient x parameter update*); and (ii) the squared distance of each parameter from its previous value, that quantifies how far it moved from the previous task configuration. SI is tested on disjoint and permuted MNIST and CIFAR 10/100. Results are comparable to [EWC](#ewc).
+
+**Comment:**<br/>
+It is very interesting that just using the gradient (squared) as a weight is enough to prevent the network from forgetting old tasks. Also, the fact that the weights are computed online during training is very convenient. However, it would have been nice to have more experiments to assess the difference in performance with [EWC](#ewc)
 
 ---
