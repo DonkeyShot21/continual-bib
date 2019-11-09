@@ -95,14 +95,12 @@ three to five lines comment goes here.
 
 Papers are organized in chronological order. If the same method has been published in different conferences / journals, all of them need to be listed both in the list index and the detailed list. The summary and table should refer to the most recent publication (usually journal). When many implementations are available, just include the ones that look more user frendly. In the case there are too many authors for one publication just report the first three + *et al.*
 
-### List Index
+### List
 
 - [Learning without Forgetting](#lwf), ECCV 2016 / PAMI 2017
 - [Overcoming catastrophic forgetting in neural networks](#ewc), PNAS 2017
 - [Continual learning through synaptic intelligence](#si), ICML 2017
 - [Encoder Based Lifelong Learning](#ebll), ICCV 2017
-
-### Detailed List
 
 ---
 
@@ -160,7 +158,7 @@ It is very interesting that just using the gradient (squared) as a weight is eno
 | regularization | ImageNet, ... | [<img src="https://upload.wikimedia.org/wikipedia/commons/2/21/Matlab_Logo.png" height="24"/>](https://github.com/rahafaljundi/Encoder-Based-Lifelong-learning) | :neutral_face: |
 
 **Summary:**<br/>
-Similar to [LwF](#lwf) but it introduces an autoencoder that takes as input the features extracted by the first part of the *solver* network and tries to reconstruct them. During training the encoded representation (bottleneck of the autoencoder) is used to prevent the network from changing drastically, by means of a *code loss*. The dimension of the bottleneck is smaller than the dimension of the input, so the autoencoder captures the submanifold that represents the best the structure of the input data. Distillation loss and classification loss are also used in training. Experiments are conducted on 2/3 sequences of tasks. Results show a tiny increment in performance wrt [LwF](#lwf).
+Similar to [LwF](#lwf) but it introduces an autoencoder that takes as input the features extracted by the first part of the *solver* network and tries to reconstruct them. During training the encoded representation (bottleneck of the autoencoder) is used to prevent the network from changing drastically, by means of a *code loss*. The dimension of the bottleneck is smaller than the dimension of the input, so the autoencoder captures the submanifold that represents the best the structure of the input data. Distillation loss and classification loss are also used in training. Experiments are conducted on sequences of 2/3 tasks. Results show a tiny increment in performance wrt [LwF](#lwf).
 
 **Comment:**<br/>
 The idea is somehow nice and the experiments are fine but the improvement in performance IMHO is not enought to justify the use of an additional autoencoder.
