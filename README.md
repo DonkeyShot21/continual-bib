@@ -56,7 +56,7 @@ Each entry should be formatted as below:
 
 | Category | Datasets | Code | Inspiration Score |
 |:-:|:-:|:-:|:-:|
-| regularization <br/> sample <br/> generative <br/> meta | list of datasets | [<img src="icons/pytorch.png" alt="pytorch" height="24"/>][code:paper_id] pytorch <br/> [<img src="icons/tensorflow.png" alt="tensorflow" height="24"/>][code:paper_id] tensorflow <br/> :no_entry_sign: no code | :thinking: not sure <br/> :neutral_face: ok <br/> :star: good <br/> :fire: very good |
+| regularization <br/> sample <br/> generative <br/> meta | list of datasets | [<img src="icons/pytorch.png" alt="pytorch" height="24"/>][code:paper_id] pytorch <br/> [<img src="icons/tensorflow.png" alt="tensorflow" height="24"/>][code:paper_id] tensorflow <br/> :no_entry_sign: no code | :thinking: not sure <br/> :star: good <br/> :fire: super |
 
 **Summary:**<br/>
 three to five lines summary.
@@ -104,6 +104,7 @@ Papers are organized in chronological order. If the same method has been publish
 - [Continual learning through synaptic intelligence](#si), ICML 2017
 - [Encoder Based Lifelong Learning](#ebll), ICCV 2017
 - [Overcoming Catastrophic Forgetting by Incremental Moment Matching](#imm), NIPS 2017
+- [Gradient Episodic Memory for Continual Learning](#gem), NIPS 2017
 
 ---
 
@@ -158,7 +159,7 @@ It is very interesting that just using the gradient (squared) as a weight is eno
 
 | Category | Datasets | Code | Inspiration Score |
 |:-:|:-:|:-:|:-:|
-| regularization | ImageNet, CUB, ... | [<img src="https://upload.wikimedia.org/wikipedia/commons/2/21/Matlab_Logo.png" height="24"/>](https://github.com/rahafaljundi/Encoder-Based-Lifelong-learning) | :neutral_face: |
+| regularization | ImageNet, CUB, ... | [<img src="https://upload.wikimedia.org/wikipedia/commons/2/21/Matlab_Logo.png" height="24"/>](https://github.com/rahafaljundi/Encoder-Based-Lifelong-learning) | :star: |
 
 **Summary:**<br/>
 Similar to [LwF](#lwf) but it introduces an autoencoder that takes as input the features extracted by the first part of the *solver* network and tries to reconstruct them. During training the encoded representation (bottleneck of the autoencoder) is used to prevent the network from changing drastically, by means of a *code loss*. The dimension of the bottleneck is smaller than the dimension of the input, so the autoencoder captures the submanifold that represents the best the structure of the input data. Distillation loss and classification loss are also used in training. Experiments are conducted on sequences of 2/3 tasks. Results show a tiny increment in performance wrt [LwF](#lwf).
@@ -180,5 +181,20 @@ IMM uses a Gaussian distribution to approximate the posterior distribution of pa
 
 **Comment:**<br/>
 This paper is interesting for two reasons: (i) they merge the networks generated from different tasks after training, (ii) they introduce drop-transfer to smooth the loss function and avoid high cost barriers inbetween the configurations they want to merge. By the way, the functioning of drop-transfer reminded me of [Zoneout](https://arxiv.org/abs/1606.01305) (although Zoneout remembers activations while drop-transfer remembers parameters).
+
+---
+
+<a name="gem"></a>[Gradient Episodic Memory for Continual Learning](https://arxiv.org/abs/1704.01920), NIPS 2017<br/>
+*David Lopez-Paz, Marc'Aurelio Ranzato*
+
+| Category | Datasets | Code | Inspiration Score |
+|:-:|:-:|:-:|:-:|
+| sample | MINST, CIFAR | [<img src="./icons/pytorch.png" height="24"/>](https://github.com/facebookresearch/GradientEpisodicMemory) | :fire: |
+
+**Summary:**<br/>
+This work approaches CL in a sligtly different way with respect to most other studies. At training time they add the constraint that each example can be seen only once by the solver. Also, tasks come in sequences without any constraint on the order, and the solver is aware of the task it is tackling at each time. With said CL framework, the paper introduces Gradient Episodic Memory (GEM) whose main feature is an episodic memory (small set of samples) of the learned tasks. Instead of being used to keep the predictions at past tasks invariant by means of distillation as in [iCaRL](#icarl), this episodic memory is employed as an inequality constraint to avoid the increase in the loss but allowing its decrease, therefore enabling positive backward transfer. This can be done without storing old parameters, since the increase in the loss for previous tasks can be diagnosed by computing the angle between the loss gradient vector of the old samples and the proposed update. In case the cosines of the angles to previous task gradients are all positive, then the update is carried out, otherwise the update (gradient) is projected to the closest gradient that does not increase the loss on any (all) tasks. In practice they use first order Taylor series approximation to estimate the update direction ([A-GEM](#agem) will further relax the constraint on projection). Experiments are very strong and, interestingly, they also show evaluate 
+
+**Comment:**<br/>
+The concept introduced in this paper is very cool: they constrain the update of the new task to not interfere with the previous tasks, and this is achieved through projecting the estimated gradient direction on the feasible region outlined by previous tasks’ gradients. It also seems to work reasonably well in practice, although it can be a bit slow in training.
 
 ---
