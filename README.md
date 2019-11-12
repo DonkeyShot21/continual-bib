@@ -113,7 +113,7 @@ Papers are organized in chronological order. If the same method has been publish
 
 | Category | Datasets | Code | Inspiration Score |
 |:-:|:-:|:-:|:-:|
-| regularization | MNIST, CIFAR, ImageNet, CUB | [<img src="icons/pytorch.png" height="24"/>](https://github.com/GMvandeVen/continual-learning) [<img src="https://upload.wikimedia.org/wikipedia/commons/2/21/Matlab_Logo.png" height="24"/>](https://github.com/lizhitwo/LearningWithoutForgetting#installation) | :star: |
+| regularization | MNIST, CIFAR, ImageNet, CUB | [<img src="icons/pytorch.png" height="24"/>](https://github.com/GMvandeVen/continual-learning) [<img src="icons/matlab.png" height="24"/>](https://github.com/lizhitwo/LearningWithoutForgetting#installation) | :star: |
 
 **Summary:**<br/>
 LwF proposes to preserve the performance on the old task using [knowledge distillation](https://arxiv.org/abs/1503.02531). They introduce a regularization term (distillation loss) in training that encourages the outputs of the new network to approximate the outputs of the old network. Several regularization losses (L1, L2, cross-entropy) are tested with similar results to distillation loss. Both single and multiple new tasks are explored. The experiments show that LwF moderately outperforms feature extraction, finetuning, [Less-forgetting Learning](#lfl), while compared to the joint training setup, it tends to underperform on the old task (as expected).
@@ -159,7 +159,7 @@ It is very interesting that just using the gradient (squared) as a weight is eno
 
 | Category | Datasets | Code | Inspiration Score |
 |:-:|:-:|:-:|:-:|
-| regularization | ImageNet, CUB, ... | [<img src="https://upload.wikimedia.org/wikipedia/commons/2/21/Matlab_Logo.png" height="24"/>](https://github.com/rahafaljundi/Encoder-Based-Lifelong-learning) | :star: |
+| regularization | ImageNet, CUB, ... | [<img src="icons/matlab.png" height="24"/>](https://github.com/rahafaljundi/Encoder-Based-Lifelong-learning) | :star: |
 
 **Summary:**<br/>
 Similar to [LwF](#lwf) but it introduces an autoencoder that takes as input the features extracted by the first part of the *solver* network and tries to reconstruct them. During training the encoded representation (bottleneck of the autoencoder) is used to prevent the network from changing drastically, by means of a *code loss*. The dimension of the bottleneck is smaller than the dimension of the input, so the autoencoder captures the submanifold that represents the best the structure of the input data. Distillation loss and classification loss are also used in training. Experiments are conducted on sequences of 2/3 tasks. Results show a tiny increment in performance wrt [LwF](#lwf).
