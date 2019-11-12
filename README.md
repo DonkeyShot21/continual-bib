@@ -36,7 +36,7 @@ Other works, instead, make use of extra-memory or generative models that provide
 |:-:|:-:|:-:|:-:|:-:|
 | <a name="mnist"></a>[MNIST][web:mnist] | 28x28 | 10 (permuted / disjoint) | 70K | 20 MB |
 | <a name="cifar"></a>[CIFAR][web:cifar] | 32x32 | 10 / 100 | 60K | 160 MB |
-| <a name="imagenet-1000"></a>[ImageNet][web:imagenet] | variable | 1000 | 1.2M | 154 GB |
+| <a name="imagenet-1000"></a>[ImageNet][web:imagenet] | variable* | 1000 | 1.2M | 154 GB |
 | <a name="cub"></a>[CUB][web:cub] | variable | 200 | 12K | 1.1 GB |
 
 [web:mnist]: http://yann.lecun.com/exdb/mnist/
@@ -44,7 +44,7 @@ Other works, instead, make use of extra-memory or generative models that provide
 [web:imagenet]: http://www.image-net.org/download-images
 [web:cub]: http://www.vision.caltech.edu/visipedia/CUB-200-2011.html
 
-\* on average, though images are usually downscaled to 256x256
+\* images are usually resized to 256x256
 
 ## <a name="template"></a>Template
 Each entry should be formatted as below:
