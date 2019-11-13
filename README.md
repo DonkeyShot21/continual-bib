@@ -34,7 +34,7 @@ Other works, instead, make use of extra-memory or generative models that provide
 ## <a name="datasets"></a>Datasets
 | Name | Resolution | Classes | Images | Size |
 |:-:|:-:|:-:|:-:|:-:|
-| <a name="mnist"></a>[MNIST][web:mnist] | 28x28 | 10 (permuted / disjoint) | 70K | 20 MB |
+| <a name="mnist"></a>[MNIST][web:mnist] | 28x28 | 10 | 70K | 20 MB |
 | <a name="cifar"></a>[CIFAR][web:cifar] | 32x32 | 10 / 100 | 60K | 160 MB |
 | <a name="imagenet-1000"></a>[ImageNet][web:imagenet] | variable* | 1000 | 1.2M | 154 GB |
 | <a name="cub"></a>[CUB][web:cub] | variable | 200 | 12K | 1.1 GB |
@@ -108,6 +108,7 @@ Papers are organized in chronological order. If the same method has been publish
 - [Overcoming Catastrophic Forgetting by Incremental Moment Matching](#imm), NIPS 2017
 - [Gradient Episodic Memory for Continual Learning](#gem), NIPS 2017
 - [Continual Learning with Deep Generative Replay](#dgr), NIPS 2017
+- [iCaRL: Incremental Classifier and Representation Learning](#icarl), CVPR 2017
 
 ---
 
@@ -195,7 +196,7 @@ This paper is interesting for two reasons: (i) they merge the networks generated
 | sample | MINST, CIFAR | [<img src="./icons/pytorch.png" height="24"/>](https://github.com/facebookresearch/GradientEpisodicMemory) | :fire: |
 
 **Summary:**<br/>
-This work approaches CL in a sligtly different way with respect to most other studies. At training time they add the constraint that each example can be seen only once by the solver. Also, tasks come in sequences without any constraint on the order, and the solver is aware of the task it is tackling at each time. With said CL framework, the paper introduces Gradient Episodic Memory (GEM) whose main feature is an episodic memory (small set of samples) of the learned tasks. Instead of being used to keep the predictions at past tasks invariant by means of distillation as in [iCaRL](#icarl), this episodic memory is employed as an inequality constraint to avoid the increase in the loss but allowing its decrease, therefore enabling positive backward transfer. This can be done without storing old parameters, since the increase in the loss for previous tasks can be diagnosed by computing the angle between the loss gradient vector of the old samples and the proposed update. In case the cosines of the angles to previous task gradients are all positive, then the update is carried out, otherwise the update (gradient) is projected to the closest gradient that does not increase the loss on any (all) tasks. In practice they use first order Taylor series approximation to estimate the update direction ([A-GEM](#agem) will further relax the constraint on projection). Experiments are on MNIST and CIFAR are solid. 
+This work approaches CL in a sligtly different way with respect to most other studies. At training time they add the constraint that each example can be seen only once by the solver, but they also relax the contraint about retaining a small sample of data after training on a particular task has finished. With said CL framework, the paper introduces Gradient Episodic Memory (GEM) whose main feature is an episodic memory (small set of samples) of the learned tasks. Instead of being used to keep the predictions at past tasks invariant by means of distillation as in [iCaRL](#icarl), this episodic memory is employed as an inequality constraint to avoid the increase in the loss but allowing its decrease, therefore enabling positive backward transfer. This can be done without storing old parameters, since the increase in the loss for previous tasks can be diagnosed by computing the angle between the loss gradient vector of the old samples and the proposed update. In case the cosines of the angles to previous task gradients are all positive, then the update is carried out, otherwise the update (gradient) is projected to the closest gradient that does not increase the loss on any (all) tasks. In practice they use first order Taylor series approximation to estimate the update direction ([A-GEM](#agem) will further relax the constraint on projection). Experiments are on MNIST and CIFAR are solid. 
 
 **Comment:**<br/>
 The concept introduced in this paper is very cool: they constrain the update of the new task to not interfere with the previous tasks, and this is achieved through projecting the estimated gradient direction on the feasible region outlined by previous tasks’ gradients. It also seems to work reasonably well in practice, although it can be a bit slow in training.
@@ -214,5 +215,20 @@ This paper proposes to use a Complementary Learning System (CLS) to solve contin
 
 **Comment:**<br/>
 The method for solving catastrophic forgetting introduced by the paper is simple and quite neat. However, the overhead produced by a generative model in terms of computation and memory is not negligible, especially in more complex tasks. The relationship with the functioning of the brain (hippocampus + neocortex) is nice and could be explored further.
+
+---
+
+<a name="icarl"></a>[iCaRL: Incremental Classifier and Representation Learning](https://arxiv.org/abs/1611.07725), NIPS 2017<br/>
+*Sylvestre-Alvise Rebuffi, Alexander Kolesnikov, Georg Sperl, Christoph H. Lampert*
+
+| Category | Datasets | Code | Inspiration Score |
+|:-:|:-:|:-:|:-:|
+| sample | CIFAR, ImageNet | [<img src="./icons/tensorflow.png" height="24"/>](https://github.com/srebuffi/iCaRL) [<img src="./icons/pytorch.png" height="24"/>](https://github.com/donlee90/icarl) [<img src="./icons/pytorch.png" height="24"/>](https://github.com/arthurdouillard/incremental_learning.pytorch) | :star: |
+
+**Summary:**<br/>
+This paper refers to the class-incremental setup instead of the more commonly used task-incremental setup. As in [GEM](#gem), iCaRL relaxes the constraint on retaining a small sample of data about previous classes, saying that it is enough for the computational and memory footprint to remain bounded, or at least grow very slowly with the number of classes. The special feature of this study is that it learns a classifier and a data representation simultaneously. The representations are basically the features extracted by the CNN, which are also the inputs of the classifier, a linear layer followed by a sigmoid. In the paper, they argue that in the class-incremental setting, the classifier should be updated every time the representations change (the CNN is updated), but this is not possible because old class data is not available. To avoid this problem, they use a *nearest-mean-of-exemplars* classifier in inference. The advantage here is that the means of the exemplars are recalculated after every incremental training step using the updated representations. During training, iCaRL uses cross entropy on the current classes and distillation on the old ones to ensure that the discriminative information learned previously is not lost during the new learning step. The experiments show that iCaRL is effective at mitigating catastrofic forgetting, obtaining a significant boost in performance on CIFAR and ImageNet. Also, they show that the confusion matrix is homogeneous over classes, which proves that iCaRL has no intrinsic bias towards or against classes that it encounters early or late during learning.
+
+**Comment:**<br/>
+The trick of removing the last fully connected layer is simple and effective. Results are convincing. If we nitpick, iCaRL has two slight drawbacks: (i) it uses exemplars which breaks the most common CL desiderata (ii) it is slow in inference because it needs to find the nearest mean.
 
 ---
