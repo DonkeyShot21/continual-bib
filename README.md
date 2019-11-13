@@ -38,11 +38,13 @@ Other works, instead, make use of extra-memory or generative models that provide
 | <a name="cifar"></a>[CIFAR][web:cifar] | 32x32 | 10 / 100 | 60K | 160 MB |
 | <a name="imagenet-1000"></a>[ImageNet][web:imagenet] | variable* | 1000 | 1.2M | 154 GB |
 | <a name="cub"></a>[CUB][web:cub] | variable | 200 | 12K | 1.1 GB |
+| <a name="svhn"></a>[SVHN][web:svhn] | 32x32 | 10 | 100K | 600 MB
 
 [web:mnist]: http://yann.lecun.com/exdb/mnist/
 [web:cifar]: https://www.cs.toronto.edu/~kriz/cifar.html
 [web:imagenet]: http://www.image-net.org/download-images
 [web:cub]: http://www.vision.caltech.edu/visipedia/CUB-200-2011.html
+[web:svhn]: http://ufldl.stanford.edu/housenumbers/
 
 \* images are usually resized to 256x256
 
@@ -105,6 +107,7 @@ Papers are organized in chronological order. If the same method has been publish
 - [Encoder Based Lifelong Learning](#ebll), ICCV 2017
 - [Overcoming Catastrophic Forgetting by Incremental Moment Matching](#imm), NIPS 2017
 - [Gradient Episodic Memory for Continual Learning](#gem), NIPS 2017
+- [Continual Learning with Deep Generative Replay](#dgr), NIPS 2017
 
 ---
 
@@ -192,9 +195,24 @@ This paper is interesting for two reasons: (i) they merge the networks generated
 | sample | MINST, CIFAR | [<img src="./icons/pytorch.png" height="24"/>](https://github.com/facebookresearch/GradientEpisodicMemory) | :fire: |
 
 **Summary:**<br/>
-This work approaches CL in a sligtly different way with respect to most other studies. At training time they add the constraint that each example can be seen only once by the solver. Also, tasks come in sequences without any constraint on the order, and the solver is aware of the task it is tackling at each time. With said CL framework, the paper introduces Gradient Episodic Memory (GEM) whose main feature is an episodic memory (small set of samples) of the learned tasks. Instead of being used to keep the predictions at past tasks invariant by means of distillation as in [iCaRL](#icarl), this episodic memory is employed as an inequality constraint to avoid the increase in the loss but allowing its decrease, therefore enabling positive backward transfer. This can be done without storing old parameters, since the increase in the loss for previous tasks can be diagnosed by computing the angle between the loss gradient vector of the old samples and the proposed update. In case the cosines of the angles to previous task gradients are all positive, then the update is carried out, otherwise the update (gradient) is projected to the closest gradient that does not increase the loss on any (all) tasks. In practice they use first order Taylor series approximation to estimate the update direction ([A-GEM](#agem) will further relax the constraint on projection). Experiments are very strong and, interestingly, they also show evaluate 
+This work approaches CL in a sligtly different way with respect to most other studies. At training time they add the constraint that each example can be seen only once by the solver. Also, tasks come in sequences without any constraint on the order, and the solver is aware of the task it is tackling at each time. With said CL framework, the paper introduces Gradient Episodic Memory (GEM) whose main feature is an episodic memory (small set of samples) of the learned tasks. Instead of being used to keep the predictions at past tasks invariant by means of distillation as in [iCaRL](#icarl), this episodic memory is employed as an inequality constraint to avoid the increase in the loss but allowing its decrease, therefore enabling positive backward transfer. This can be done without storing old parameters, since the increase in the loss for previous tasks can be diagnosed by computing the angle between the loss gradient vector of the old samples and the proposed update. In case the cosines of the angles to previous task gradients are all positive, then the update is carried out, otherwise the update (gradient) is projected to the closest gradient that does not increase the loss on any (all) tasks. In practice they use first order Taylor series approximation to estimate the update direction ([A-GEM](#agem) will further relax the constraint on projection). Experiments are on MNIST and CIFAR are solid. 
 
 **Comment:**<br/>
 The concept introduced in this paper is very cool: they constrain the update of the new task to not interfere with the previous tasks, and this is achieved through projecting the estimated gradient direction on the feasible region outlined by previous tasks’ gradients. It also seems to work reasonably well in practice, although it can be a bit slow in training.
+
+---
+
+<a name="dgr"></a>[Continual Learning with Deep Generative Replay](https://arxiv.org/abs/1705.08690), NIPS 2017<br/>
+*Hanul Shin, Jung Kwon Lee, Jaehong Kim, Jiwon Kim*
+
+| Category | Datasets | Code | Inspiration Score |
+|:-:|:-:|:-:|:-:|
+| generative | MNSIT, SVHN | [<img src="./icons/pytorch.png" height="24"/>](https://github.com/kuc2477/pytorch-deep-generative-replay) [<img src="./icons/pytorch.png" height="24"/>](https://github.com/GMvandeVen/continual-learning) | :star: |
+
+**Summary:**<br/>
+This paper proposes to use a Complementary Learning System (CLS) to solve continual learning. The CLS (also called *scholar*) is composed by a *solver* network that focuses on classification and a *generator* that produces real-like samples. The *solver* is trained using a set of fake-samples generated from previous experience, called Deep Generative Replay (DGR). The difference with previously studied pseudoreharsal techniques is that the *generator* is jointly trained using an ensemble of generated data (previous tasks) and real data (current task). Experiments conducted using MNIST and SVHN show that DGR yields very similar performance to Exact Replay (ER). DGR is also compatible with other techniques for CL, like for instance [LwF](#lwf), although experiments do not show any significative improvements over pure DGR.
+
+**Comment:**<br/>
+The method for solving catastrophic forgetting introduced by the paper is simple and quite neat. However, the overhead produced by a generative model in terms of computation and memory is not negligible, especially in more complex tasks. The relationship with the functioning of the brain (hippocampus + neocortex) is nice and could be explored further.
 
 ---
