@@ -56,7 +56,7 @@ Each entry should be formatted as below:
 
 | Category | Datasets | Code | Inspiration Score |
 |:-:|:-:|:-:|:-:|
-| regularization <br/> sample <br/> generative <br/> meta | list of datasets | [<img src="icons/pytorch.png" alt="pytorch" height="24"/>][code:paper_id] pytorch <br/> [<img src="icons/tensorflow.png" alt="tensorflow" height="24"/>][code:paper_id] tensorflow <br/> :no_entry_sign: no code | :thinking: not sure <br/> :star: good <br/> :fire: super |
+| regularization <br/> sample <br/> generative <br/> meta | list of datasets | [<img src="icons/pytorch.png" alt="pytorch" height="24"/>][code:paper_id] pytorch <br/> [<img src="icons/tensorflow.png" alt="tensorflow" height="24"/>][code:paper_id] tensorflow <br/> [<img src="icons/matlab.png" alt="pytorch" height="24"/>][code:paper_id] matlab <br/> :no_entry_sign: no code | :thinking: not sure <br/> :star: good <br/> :fire: super |
 
 **Summary:**<br/>
 three to five lines summary.
