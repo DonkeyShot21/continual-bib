@@ -46,7 +46,7 @@ Other works, instead, make use of extra-memory or generative models that provide
 [web:cub]: http://www.vision.caltech.edu/visipedia/CUB-200-2011.html
 [web:svhn]: http://ufldl.stanford.edu/housenumbers/
 
-\* images are usually resized to 256x256
+\* images are usually resized to 224x224
 
 ## <a name="template"></a>Template
 Each entry should be formatted as below:
@@ -230,5 +230,21 @@ This paper refers to the class-incremental setup instead of the more commonly us
 
 **Comment:**<br/>
 The trick of removing the last fully connected layer is simple and effective. Results are convincing. If we nitpick, iCaRL has two slight drawbacks: (i) it uses exemplars which breaks the most common CL desiderata (ii) it is slow in inference because it needs to find the nearest mean.
+
+
+---
+
+<a name="expert-gate"></a>[Expert Gate: Lifelong Learning with a Network of Experts](https://arxiv.org/abs/1611.06194), CVPR 2017<br/>
+*Rahaf Aljundi, Punarjay Chakravarty, Tinne Tuytelaars*
+
+| Category | Datasets | Code | Inspiration Score |
+|:-:|:-:|:-:|:-:|
+| N/A | CIFAR, ImageNet | [<img src="icons/matlab.png" height="24"/>](https://github.com/rahafaljundi/Expert-Gate)  | :star: |
+
+**Summary:**<br/>
+A feasible approach to CL is to train a set of experts that are specialized in a single task. Then, in this context, a critical issue is to decide which expert to deploy at test time. In this paper, they introduce a set of gating autoencoders that learn a representation for a specific task in order to assign each test sample to a specific expert (solver network). In practice, at inference time, the ensemble of autoencoders is used to reconstruct the input image, and the expert associated with the most confident autoencoder is loaded. Autoencoders can also be used to measure tark relatedness, which is useful two ways: (i) to select the most related task to be used as prior model for learning the new task; (II) to determine which transfer method to use: finetuning or [LwF](#lwf).
+
+**Comment:**<br/>
+Training a solver and an autoencoder for each task might not be always possible, since it is very memory and computation expensive. 
 
 ---
