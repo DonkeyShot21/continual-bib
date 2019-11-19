@@ -109,6 +109,7 @@ Papers are organized in chronological order. If the same method has been publish
 - [Gradient Episodic Memory for Continual Learning](#gem), NIPS 2017
 - [Continual Learning with Deep Generative Replay](#dgr), NIPS 2017
 - [iCaRL: Incremental Classifier and Representation Learning](#icarl), CVPR 2017
+- [Expert Gate: Lifelong Learning with a Network of Experts](#expert-gate), CVPR 2017
 
 ---
 
