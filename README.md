@@ -110,6 +110,7 @@ Papers are organized in chronological order. If the same method has been publish
 - [Continual Learning with Deep Generative Replay](#dgr), NIPS 2017
 - [iCaRL: Incremental Classifier and Representation Learning](#icarl), CVPR 2017
 - [Expert Gate: Lifelong Learning with a Network of Experts](#expert-gate), CVPR 2017
+- [Learning to Remember: A Synaptic Plasticity Driven Framework for Continual Learning](#LtR)
 
 ---
 
@@ -247,5 +248,20 @@ A feasible approach to CL is to train a set of experts that are specialized in a
 
 **Comment:**<br/>
 Training a solver and an autoencoder for each task might not be always possible, since it is very memory and computation expensive. 
+
+---
+
+<a name="LtR"></a>[Learning to Remember: A Synaptic Plasticity Driven Framework for Continual Learning](https://arxiv.org/abs/1904.03137), CVPR 2017<br/>
+*Rahaf Aljundi, Punarjay Chakravarty, Tinne Tuytelaars*
+
+| Category | Datasets | Code | Inspiration Score |
+|:-:|:-:|:-:|:-:|
+| generative | MNIST, SVHN, CIFAR, ImageNet | [<img src="icons/pytorch.png" height="24"/>](https://github.com/SAP/machine-learning-dgm)  | :fire: |
+
+**Summary:**<br/>
+This paper builds on top of [DGR](#dgr). The authors propose Dynamic Generative Memory (DGM) that features a generator with learnable connection plasticity that removes the need to replay previous knowledge. Neural plasticity is achieved through efficient learning of a sparse attention masks for the network weights (DGMw) or layer activations (DGMa). This is complemented by a dynamic network expansion mechanism that ensures a constant number of free parameters for each task. 
+
+**Comment:**<br/>
+The method is a bit complicated, but performance are very good. Also, it requires quite a bit of memory overhead (comparable to [iCaRL](#icarl)) for storing the generator and its masks.
 
 ---
