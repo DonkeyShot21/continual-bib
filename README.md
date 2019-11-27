@@ -110,7 +110,7 @@ Papers are organized in chronological order. If the same method has been publish
 - [Continual Learning with Deep Generative Replay](#dgr), NIPS 2017
 - [iCaRL: Incremental Classifier and Representation Learning](#icarl), CVPR 2017
 - [Expert Gate: Lifelong Learning with a Network of Experts](#expert-gate), CVPR 2017
-- [Learning to Remember: A Synaptic Plasticity Driven Framework for Continual Learning](#LtR)
+- [Learning to Remember: A Synaptic Plasticity Driven Framework for Continual Learning](#LtR), CVPR 2019
 
 ---
 
@@ -175,7 +175,7 @@ The idea is somehow nice and the experiments are fine but the improvement in per
 
 ---
 
-<a name="imm"></a>[Overcoming Catastrophic Forgetting by Incremental Moment Matching](https://arxiv.org/abs/1704.01920), NIPS 2017<br/>
+<a name="imm"></a>[Overcoming Catastrophic Forgetting by Incremental Moment Matching](https://arxiv.org/abs/1703.08475), NIPS 2017<br/>
 *Sang-Woo Lee, Jin-Hwa Kim, Jaehyun Jun, Jung-Woo Ha, Byoung-Tak Zhang*
 
 | Category | Datasets | Code | Inspiration Score |
