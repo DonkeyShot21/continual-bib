@@ -110,6 +110,7 @@ Papers are organized in chronological order. If the same method has been publish
 - [Continual Learning with Deep Generative Replay](#dgr), NIPS 2017
 - [iCaRL: Incremental Classifier and Representation Learning](#icarl), CVPR 2017
 - [Expert Gate: Lifelong Learning with a Network of Experts](#expert-gate), CVPR 2017
+- [Riemannian Walk for Incremental Learning: Understanding Forgetting and Intransigence](#rwalk), ECCV 2018
 - [Learning to Remember: A Synaptic Plasticity Driven Framework for Continual Learning](#LtR), CVPR 2019
 
 ---
@@ -251,8 +252,23 @@ Training a solver and an autoencoder for each task might not be always possible,
 
 ---
 
-<a name="LtR"></a>[Learning to Remember: A Synaptic Plasticity Driven Framework for Continual Learning](https://arxiv.org/abs/1904.03137), CVPR 2017<br/>
-*Rahaf Aljundi, Punarjay Chakravarty, Tinne Tuytelaars*
+<a name="rwalk"></a>[Riemannian Walk for Incremental Learning: Understanding Forgetting and Intransigence](https://arxiv.org/abs/1801.10112), ECCV 2018<br/>
+*Arslan Chaudhry, Puneet K. Dokania, Thalaiyasingam Ajanthan, Philip H. S. Torr*
+
+| Category | Datasets | Code | Inspiration Score |
+|:-:|:-:|:-:|:-:|
+| regularization | MNIST, CIFAR | :no_entry_sign: | :star: |
+
+**Summary:**<br/>
+First, this paper introduces two evaluation metrics for CL: Forgetting and Intransigence. Forgetting quantifies *"how much an algorithm forgets what it learned in the past"*, while intransigence is *"the inability of an algorithm to learn new tasks"*. These metrics, together with average accuracy, are used to evaluate the performance of RWalk, a generalization of EWC++ (which in turn is an efficient version of [EWC](#ewc)) and [Path Integral](#si) with theoretically grounded KL-divergence based perspective providing new insights. 
+
+**Comment:**<br/>
+The mathematical modeling of the paper provides good insights and it is a pleasure to read it. Also it shows very clearly the difference between multi-head and single-head continual learning. However, the method itself is not very innovative, since it is just a respin of previous methods.
+
+---
+
+<a name="LtR"></a>[Learning to Remember: A Synaptic Plasticity Driven Framework for Continual Learning](https://arxiv.org/abs/1904.03137), CVPR 2019<br/>
+*Oleksiy Ostapenko, Mihai Puscas, Tassilo Klein, Patrick Jähnichen, Moin Nabi*
 
 | Category | Datasets | Code | Inspiration Score |
 |:-:|:-:|:-:|:-:|
