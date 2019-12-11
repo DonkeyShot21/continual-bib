@@ -191,7 +191,7 @@ This paper is interesting for two reasons: (i) they merge the networks generated
 
 ---
 
-<a name="gem"></a>[Gradient Episodic Memory for Continual Learning](https://arxiv.org/abs/1704.01920), NIPS 2017<br/>
+<a name="gem"></a>[Gradient Episodic Memory for Continual Learning](https://arxiv.org/abs/1706.08840), NIPS 2017<br/>
 *David Lopez-Paz, Marc'Aurelio Ranzato*
 
 | Category | Datasets | Code | Inspiration Score |
